@@ -4,6 +4,29 @@ This package finds out disjoint clusters and its modularity for different Influe
 
 ##Execution
 
+###Running the algorithm:
+
+- Commands:
+
+```
+$ make                       #builds the Louvain code for your architecture
+$ ./script.sh <input_graph>  #runs LINCOM_disjoint algorithm for standard INS value 0.75.
+```
+
+- Sample Output (On Console) :
+
+```
+r = 0.75
+No. of communities before mod max : 2
+Number of communities after mod max: 2
+Final modularity: 0.371795
+```
+
+- Generated output file:
+```
+No output file generated.
+```
+
 ###Different INS values:
 
 - Commands:
@@ -35,10 +58,12 @@ Number of communities after mod max: 4
 Final modularity: 0.41979
 ```
 
-- Generated output file:                  
-    Filename: disjoint_ins            
-    Output format:              
-    (ins_value) (no_of_comm) (disjoint_modularity)
+- Generated output file:     
+```
+Filename: disjoint_ins            
+Output format:              
+(ins_value) (no_of_comm) (disjoint_modularity)
+```
 
 ### Different Starting Node:
 
@@ -77,7 +102,8 @@ Final modularity: 0.371795
 ```
 
 - Generated output file:
-
-    Filename: disjoint_start_node_input_filename        
-    Output format:            
-    (node_label) (disjoint_modularity)
+```
+Filename: disjoint_start_node_input_filename        
+Output format:            
+(node_label) (disjoint_modularity)
+```
