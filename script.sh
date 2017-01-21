@@ -9,7 +9,7 @@ filename=$1
 r=0.75
 gcc LINCOM_ins.c -o output
 
-echo INS = $r
+echo r = $r
 ./output $filename $r
 
 if (($? != 0)); then
