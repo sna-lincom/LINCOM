@@ -1,7 +1,7 @@
 // File: main_louvain.cpp
 // -- community detection, sample main file
 //-----------------------------------------------------------------------------
-// Community detection 
+// Community detection
 // Based on the article "Fast unfolding of community hierarchies in large networks"
 // Copyright (C) 2008 V. Blondel, J.-L. Guillaume, R. Lambiotte, E. Lefebvre
 //
@@ -9,17 +9,17 @@
 // Copyright (C) 2013 R. Campigotto, P. Conde Céspedes, J.-L. Guillaume
 //
 // This file is part of Louvain algorithm.
-// 
+//
 // Louvain algorithm is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // Louvain algorithm is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU Lesser General Public License
 // along with Louvain algorithm.  If not, see <http://www.gnu.org/licenses/>.
 //-----------------------------------------------------------------------------
@@ -243,78 +243,80 @@ int
 main(int argc, char **argv) {
 
   srand(time(NULL)+getpid());
-  
+
   parse_args(argc, argv);
-  
+
   time_t time_begin, time_end;
   time(&time_begin);
-  
+
   unsigned short nb_calls = 0;
-  
-  if (verbose) 
-    display_time("Begin");
-  
+
+  // if (verbose)
+  //   display_time("Begin");
+
   Graph g(filename, filename_w, type);
   init_quality(&g, nb_calls);
   nb_calls++;
-  
-  if (verbose)
-    cerr << endl << "Computation of communities with the " << q->name << " quality function" << endl << endl;
-  
+
+  // if (verbose)
+  //   cerr << endl << "Computation of communities with the " << q->name << " quality function" << endl << endl;
+
   Louvain c(-1, precision, q);
   if (filename_part!=NULL)
     c.init_partition(filename_part);
-  
+
   bool improvement = true;
-  
+
   long double quality = (c.qual)->quality();
   long double new_qual;
-  
+
   int level = 0;
-  
+
+  // cerr << "Initial number of communities: " << (c.qual)->g.nb_nodes;
+  cerr << "Initial modularity: " << (c.qual)->quality() << endl;
   do {
     if (verbose) {
       cerr << "level " << level << ":\n";
       display_time("  start computation");
-      cerr << "  network size: " 
-	   << (c.qual)->g.nb_nodes << " nodes, " 
+      cerr << "  network size: ";
+	     cerr << (c.qual)->g.nb_nodes << " nodes, "
 	   << (c.qual)->g.nb_links << " links, "
 	   << (c.qual)->g.total_weight << " weight" << endl;
     }
-    
+
     improvement = c.one_level();
     new_qual = (c.qual)->quality();
-    
+
     if (++level==display_level)
       (c.qual)->g.display();
     if (display_level==-1)
       c.display_partition();
-    
+
     g = c.partition2graph_binary();
     init_quality(&g, nb_calls);
     nb_calls++;
-    
+
     c = Louvain(-1, precision, q);
-    
+
     if (verbose)
       cerr << "  quality increased from " << quality << " to " << new_qual << endl;
-    
+
     //quality = (c.qual)->quality();
     quality = new_qual;
-    
-    if (verbose)
-      display_time("  end computation");
-    
+
+    // if (verbose)
+    //   display_time("  end computation");
+
     if (filename_part!=NULL && level==1) // do at least one more computation if partition is provided
       improvement=true;
   } while(improvement);
-  
+
   time(&time_end);
-  if (verbose) {
-    display_time("End");
-    cerr << "Total duration: " << (time_end-time_begin) << " sec" << endl;
-  }
-  cerr << new_qual << endl;
-  
+  // if (verbose) {
+  //   // display_time("End");
+  //
+  // }
+  cerr << "Number of communities after mod max: " << (c.qual)->g.nb_nodes << endl;
+  cerr << "Final modularity: " << new_qual << endl;
   delete q;
 }

@@ -7,7 +7,7 @@ fi
 filename=$1
 gcc LINCOM_ins.c -o output
 
-report="disjoint_ins"
+report="disjoint_ins_"$filename
 if [ -e $report ]
 then
   rm $report
