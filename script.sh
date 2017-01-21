@@ -6,10 +6,10 @@ if (( $# == 0 )); then
 fi
 
 filename=$1
-r=$2
+r=0.75
 gcc LINCOM_ins.c -o output
 
-echo r = $r
+echo INS = $r
 ./output $filename $r
 
 if (($? != 0)); then
