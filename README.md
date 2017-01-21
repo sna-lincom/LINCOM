@@ -4,7 +4,7 @@ This package finds out disjoint clusters and its modularity for different Influe
 
 ##Execution
 
-###Running the algorithm:
+###Single INS value:
 
 - Commands:
 
