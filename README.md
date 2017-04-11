@@ -1,10 +1,10 @@
-#LINCOM for disjoint clusters
+# LINCOM for disjoint clusters
 
 This package finds out disjoint clusters and its modularity for different Influenced Neighbour Score (INS) values (0.4 to 0.85 interval of 0.05) and for different starting nodes.
 
-##Execution
+## Execution
 
-###Single INS value:
+### Single INS value:
 
 - Commands:
 
@@ -27,7 +27,7 @@ Final modularity: 0.371795
 No output file generated.
 ```
 
-###Different INS values:
+### Different INS values:
 
 - Commands:
 
